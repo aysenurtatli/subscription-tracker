@@ -159,7 +159,7 @@ const menuItems = computed(() => [
           <a
             class="flex items-center px-3 py-2.5 rounded-md transition-colors cursor-pointer group"
             :class="item.icon === 'pi pi-sign-out' ? 'hover:bg-red-500/10' : 'hover:bg-surface'"
-            @click="item.command"
+            @click="item.command ? item.command($event as any) : null"
           >
             <i
               :class="[

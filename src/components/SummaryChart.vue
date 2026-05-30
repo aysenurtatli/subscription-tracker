@@ -24,15 +24,15 @@ const chartData = computed(() => {
     return acc
   }, {})
 
-  return Object.keys(categoryTotals)
-    .map(cat => ({
+  return Object.entries(categoryTotals)
+    .map(([cat, amount]) => ({
       id: cat,
       label: t(`categories.${cat}`),
-      amount: categoryTotals[cat],
-      percentage: ((categoryTotals[cat] / total) * 100).toFixed(1),
+      amount,
+      percentage: ((amount / total) * 100).toFixed(1),
       color: categoryColors[cat] || '#94a3b8'
     }))
-    .sort((a, b) => b.amount - a.amount)
+    .sort((a, b) => (b.amount || 0) - (a.amount || 0))
 })
 </script>
 
@@ -80,8 +80,7 @@ const chartData = computed(() => {
     </template>
 
     <div v-else class="flex-1 flex flex-col items-center justify-center text-muted border border-dashed border-line rounded-md bg-surface/30 mt-2">
-      <i class="pi pi-receipt text-2xl opacity-40 mb-2"></i>
-      <span class="text-[13px] font-medium">Veri bekleniyor...</span>
+      <i class="pi pi-receipt text-2xl opacity-40 my-3"></i>
     </div>
 
   </div>

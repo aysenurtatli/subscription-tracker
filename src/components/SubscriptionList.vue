@@ -161,7 +161,7 @@ const displayedSubscriptions = computed(() => {
           <div class="flex items-center gap-4">
             <div class="w-10 h-10 flex items-center justify-center bg-canvas rounded-md border border-line shrink-0">
               <img
-                :src="getLogoUrl(sub.domain, sub.name)"
+                :src="getLogoUrl(sub.domain || '', sub.name)"
                 :alt="sub.name"
                 class="w-5 h-5 object-contain"
               />
@@ -202,7 +202,7 @@ const displayedSubscriptions = computed(() => {
                 text
                 title="Sil"
                 class="text-muted hover:text-red-500 p-1.5 w-8 h-8 rounded-md transition-colors"
-                @click="confirmDelete(sub.id, sub.name)"
+                @click="confirmDelete(sub.id || '', sub.name)"
               />
             </div>
           </div>
