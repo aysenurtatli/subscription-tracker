@@ -43,8 +43,8 @@ Follow these instructions to set up the project locally.
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/subslean.git](https://github.com/your-username/subslean.git)
-   cd subslean
+   git clone [https://github.com/your-username/subscription-tracker.git](https://github.com/your-username/subscription-tracker.git)
+   cd subscription-tracker
    ```
 
 2. **Install dependencies:**
