@@ -3,9 +3,9 @@ import { createI18n } from 'vue-i18n'
 const messages = {
   tr: {
     auth: {
-      missionTitle: 'Aboneliklerinizi budayın, bütçenizi kontrol altına alın.',
+      missionTitle: 'Aboneliklerinizi sadeleştirin, bütçenizi hafifletin',
       missionDesc:
-        'Prune, tüm dijital aboneliklerinizi ve düzenli harcamalarınızı tek bir merkezi panelden izlemenizi, analiz etmenizi ve optimize etmenizi sağlar.',
+        'Subslean, tüm dijital aboneliklerinizi ve düzenli harcamalarınızı tek bir merkezi panelden izlemenizi, analiz etmenizi ve optimize etmenizi sağlar.',
       feature1: 'Gerçek Zamanlı Bulut Senkronizasyonu',
       feature2: 'Gelişmiş Filtreleme ve Sıralama',
       feature3: 'Çoklu Dil ve Karanlık Tema Desteği',
@@ -38,7 +38,7 @@ const messages = {
       updatePasswordDesc: 'Lütfen hesabın için yeni bir şifre belirle.',
     },
       app: {
-        title: 'Prune',
+        title: 'Subslean',
         subtitle: 'Abonelik ve Gider Yönetim Paneli',
         totalExpense: 'Toplam Gider',
         logout: 'Çıkış Yap',
@@ -96,9 +96,9 @@ const messages = {
   },
   en: {
     auth: {
-      missionTitle: 'Prune your subscriptions, take control of your budget.',
+      missionTitle: 'Simplify your subscriptions, lighten your budget.',
       missionDesc:
-        'Prune allows you to monitor, analyze, and optimize all your digital subscriptions and recurring expenses from a single centralized dashboard.',
+        'Subslean allows you to monitor, analyze, and optimize all your digital subscriptions and recurring expenses from a single centralized dashboard.',
       feature1: 'Real-Time Cloud Synchronization',
       feature2: 'Advanced Filtering and Sorting',
       feature3: 'Multi-Language and Dark Theme Support',
@@ -131,7 +131,7 @@ const messages = {
     },
 
     app: {
-      title: 'Prune',
+      title: 'Subslean',
       subtitle: 'Subscription & Expense Dashboard',
       totalExpense: 'Total Expense',
       logout: 'Sign Out',

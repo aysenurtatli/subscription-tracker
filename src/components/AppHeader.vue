@@ -109,10 +109,14 @@ const menuItems = computed(() => [
     class="flex justify-between items-start md:items-center mb-8 gap-6 border-b border-line pb-5"
   >
     <div class="flex flex-col">
-      <img src="/prune.svg" width="100" alt="Prune Logo" class="mb-1" />
+      <img
+        :src="isDark ? '/subslean-dark.svg' : '/subslean-light.svg'"
+        width="100"
+        alt="Subslean Logo"
+        class="mb-1 transition-opacity duration-200"
+      />
       <p class="text-muted text-[13px] font-medium">{{ $t('app.subtitle') }}</p>
     </div>
-
     <div class="flex items-center gap-2 w-full md:w-auto justify-end">
 
       <Button

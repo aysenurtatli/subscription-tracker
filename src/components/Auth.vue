@@ -148,9 +148,10 @@ const handleAuthAction = async () => {
       <div
         class="md:col-span-5 bg-surface/50 p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-line"
       >
+
         <div>
           <div class="mb-8">
-            <img src="/prune.svg" width="110" alt="Prune Logo" />
+            <img :src="isDark ? '/subslean-dark.svg' : '/subslean-light.svg'" width="110" alt="Subslean Logo" />
           </div>
 
           <h2 class="text-lg font-semibold text-main leading-snug mb-3 tracking-tight">
