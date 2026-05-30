@@ -28,7 +28,7 @@ watch(
 onMounted(() => {
   isDark.value = document.documentElement.classList.contains('dark')
 
-  const savedEmail = localStorage.getItem('prune_remembered_email')
+  const savedEmail = localStorage.getItem('subslean_remembered_email')
   if (savedEmail) {
     email.value = savedEmail
     rememberMe.value = true
@@ -82,9 +82,9 @@ const handleAuthAction = async () => {
       if (error) throw error
 
       if (rememberMe.value) {
-        localStorage.setItem('prune_remembered_email', email.value)
+        localStorage.setItem('subslean_remembered_email', email.value)
       } else {
-        localStorage.removeItem('prune_remembered_email')
+        localStorage.removeItem('subslean_remembered_email')
       }
     }
 
