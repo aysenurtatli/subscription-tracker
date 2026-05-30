@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+
+/* Varsayılan (Aydınlık) Tema Değişkenleri */
+@theme {
+  --color-canvas: #ffffff;
+  --color-surface: #f6f8fa;
+  --color-line: #d0d7de;
+  --color-main: #24292f;
+  --color-muted: #57606a;
+  --color-brand: #0969da;
+  --color-success: #2da44e;
+  --color-success-hover: #2c974b;
+}
+
+/* Karanlık Tema (Dark Mode) Renkleri */
+@layer base {
+  .dark {
+    --color-canvas: #0d1117;       /* Çok koyu bir arka plan */
+    --color-surface: #161b22;      /* Kartlar için hafif daha açık bir siyah */
+    --color-line: #30363d;         /* Koyu gri kenarlıklar */
+    --color-main: #c9d1d9;         /* Açık gri metin */
+    --color-muted: #8b949e;        /* Soluk metin */
+    --color-brand: #58a6ff;        /* Parlak mavi */
+    --color-success: #238636;      /* Koyu yeşil */
+    --color-success-hover: #258036;
+  }
+}
+
+/* PrimeVue Tablo İnatçı Arka Planlarını Temizleme */
+.p-datatable,
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr,
+.p-datatable .p-datatable-tbody > tr > td {
+  background-color: transparent !important;
+}
+
+/* Tablo içindeki çizgi renklerini de bizim temamıza bağlayalım */
+.p-datatable .p-datatable-thead > tr > th,
+.p-datatable .p-datatable-tbody > tr > td {
+  border-color: var(--color-line) !important;
+}
+
+.p-select-option {
+  padding: 0.75rem 1rem !important;
+  margin: 0.125rem 0.25rem !important;
+  border-radius: 0.375rem !important;
+}
+
+/* PrimeVue AutoComplete Önerilen Seçenekler İçin Ferahlık Ayarı */
+.p-autocomplete-option {
+  padding: 0.75rem 1rem !important; /* Üst/Alt ve Sağ/Sol iç boşluğu artırarak dar görünümü çözer */
+  margin: 0.125rem 0.25rem !important; /* Seçeneklerin arasına minik nefes payı koyar */
+  border-radius: 0.375rem !important; /* Hover durumundaki arka planın köşelerini yumuşatır */
+  color: var(--color-main) !important; /* Temamızın ana yazı rengiyle eşitler */
+}
+
+/* Eğer açılan panelin genel genişliğini de inputtan biraz daha genişletmek istersen: */
+.p-autocomplete-overlay {
+  min-width: 250px !important;
+  border: 1px solid var(--color-line) !important;
+}
+
+/* Profil Açılır Menüsü Ferahlık Ayarı */
+.p-menu {
+  padding: 0 !important; /* Standart sıkışık iç boşluğu sıfırlar */
+  min-width: 15rem !important; /* Menüyü dardan kurtarıp genişletir */
+  background-color: var(--color-canvas) !important;
+  border-color: var(--color-line) !important;
+}
+
+.p-menu-overlay {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1) !important;
+}
+
