@@ -7,7 +7,7 @@ const currentYear = new Date().getFullYear()
   <footer class="mt-12 pt-6 pb-2 border-t border-line flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted">
 
     <div>
-      &copy; {{ currentYear }} Prune. {{ $t('footer.rights') }}
+      &copy; {{ currentYear }} Subslean. {{ $t('footer.rights') }}
     </div>
 
     <div class="flex items-center gap-4">
