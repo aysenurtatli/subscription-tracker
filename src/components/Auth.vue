@@ -88,19 +88,28 @@ const handleAuthAction = async () => {
       }
     }
 
-    // 2. KAYIT OLMA
+   // 2. KAYIT OLMA
     else if (viewMode.value === 'register') {
       if (password.value !== confirmPassword.value) {
         throw new Error(t('auth.passwordMismatch'))
       }
-      const { error } = await supabase.auth.signUp({
+
+      const { data, error } = await supabase.auth.signUp({
         email: email.value,
         password: password.value,
       })
       if (error) throw error
 
-      successMessage.value = t('auth.success')
-      setMode('login')
+
+      viewMode.value = 'login'
+      password.value = ''
+      confirmPassword.value = ''
+
+      if (data.session === null) {
+        successMessage.value = t('auth.checkEmail', 'Kayıt başarılı! Lütfen gelen kutunuzu (ve spam klasörünü) kontrol edip hesabınızı onaylayın.')
+      } else {
+        successMessage.value = t('auth.success')
+      }
     }
 
     // 3. ŞİFRE SIFIRLAMA MAİLİ GÖNDERME
