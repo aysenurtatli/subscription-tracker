@@ -1,19 +1,46 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { supabase } from '../supabase'
 import { useI18n } from 'vue-i18n'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 
 const { t, locale } = useI18n()
+const router = useRouter() // YENİ: Router'ı kullanıma alıyoruz
 
 const props = defineProps<{
   isRecovering?: boolean
+  initialMode?: 'login' | 'register' // YENİ: Dışarıdan gelecek başlangıç modu
 }>()
 
 const emit = defineEmits(['recovery-done'])
 const isDark = ref(false)
+
+const loading = ref(false)
+// Başlangıç değerini prop'tan alıyoruz
+const viewMode = ref<'login' | 'register' | 'forgot' | 'update'>(props.initialMode || 'login')
+
+const email = ref('')
+const password = ref('')
+const confirmPassword = ref('')
+const errorMessage = ref('')
+const successMessage = ref('')
+const rememberMe = ref(false)
+
+// YENİ: Dışarıdan gelen initialMode değiştiğinde (örn: URL değiştiğinde) viewMode'u güncelle
+watch(
+  () => props.initialMode,
+  (newMode) => {
+    if (newMode && !props.isRecovering) {
+      viewMode.value = newMode
+      errorMessage.value = ''
+      successMessage.value = ''
+    }
+  },
+  { immediate: true }
+)
 
 watch(
   () => props.isRecovering,
@@ -33,8 +60,6 @@ onMounted(() => {
     email.value = savedEmail
     rememberMe.value = true
   }
-
-
 })
 
 const toggleDarkMode = () => {
@@ -45,26 +70,22 @@ const toggleDarkMode = () => {
 const toggleLanguage = () => {
   locale.value = locale.value === 'tr' ? 'en' : 'tr'
 }
-// ---------------------------
 
-const loading = ref(false)
-// Artık sadece true/false değil, 4 farklı ekran durumumuz var
-const viewMode = ref<'login' | 'register' | 'forgot' | 'update'>('login')
-
-const email = ref('')
-const password = ref('')
-const confirmPassword = ref('')
-const errorMessage = ref('')
-const successMessage = ref('')
-const rememberMe = ref(false)
-
-// Modlar arası geçiş yaparken formu temizle
+// YENİ GÜNCELLEME: Artık sadece state değil, URL de değişiyor
 const setMode = (mode: 'login' | 'register' | 'forgot') => {
-  viewMode.value = mode
   errorMessage.value = ''
   successMessage.value = ''
   password.value = ''
   confirmPassword.value = ''
+
+  if (mode === 'login') {
+    router.push('/login')
+  } else if (mode === 'register') {
+    router.push('/register')
+  } else {
+    // 'forgot' için URL değiştirmeden sadece görünümü değiştiriyoruz
+    viewMode.value = mode
+  }
 }
 
 const handleAuthAction = async () => {
@@ -73,7 +94,6 @@ const handleAuthAction = async () => {
   successMessage.value = ''
 
   try {
-    // 1. GİRİŞ YAPMA
     if (viewMode.value === 'login') {
       const { error } = await supabase.auth.signInWithPassword({
         email: email.value,
@@ -88,7 +108,6 @@ const handleAuthAction = async () => {
       }
     }
 
-   // 2. KAYIT OLMA
     else if (viewMode.value === 'register') {
       if (password.value !== confirmPassword.value) {
         throw new Error(t('auth.passwordMismatch'))
@@ -100,8 +119,8 @@ const handleAuthAction = async () => {
       })
       if (error) throw error
 
-
-      viewMode.value = 'login'
+      // Kayıt başarılıysa view'u login'e çek, URL'yi de /login yap
+      router.push('/login')
       password.value = ''
       confirmPassword.value = ''
 
@@ -112,7 +131,6 @@ const handleAuthAction = async () => {
       }
     }
 
-    // 3. ŞİFRE SIFIRLAMA MAİLİ GÖNDERME
     else if (viewMode.value === 'forgot') {
       const { error } = await supabase.auth.resetPasswordForEmail(email.value, {
         redirectTo: window.location.origin, // Linke tıklayınca siteye geri döner
@@ -122,8 +140,6 @@ const handleAuthAction = async () => {
       successMessage.value = t('auth.resetEmailSent')
     }
 
-    // 4. YENİ ŞİFREYİ KAYDETME (Mailden dönen kullanıcı için)
-    // 4. YENİ ŞİFREYİ KAYDETME (Mailden dönen kullanıcı için)
     else if (viewMode.value === 'update') {
       if (password.value !== confirmPassword.value) {
         throw new Error(t('auth.passwordMismatch'))
@@ -151,16 +167,17 @@ const handleAuthAction = async () => {
 <template>
   <div class="flex items-center justify-center min-h-[75vh]">
     <div
-      class="bg-canvas border border-line rounded-lg overflow-hidden w-full grid grid-cols-1 md:grid-cols-12 min-h-[480px]"
+      class="bg-canvas border border-line rounded-lg overflow-hidden w-full grid grid-cols-1 md:grid-cols-12 min-h-120"
     >
-      <!-- SOL BÖLÜM -->
       <div
         class="md:col-span-5 bg-surface/50 p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-line"
       >
 
         <div>
           <div class="mb-8">
-            <img :src="isDark ? '/subslean-dark.svg' : '/subslean-light.svg'" width="110" alt="Subslean Logo" />
+            <router-link to="/">
+               <img :src="isDark ? '/subslean-dark.svg' : '/subslean-light.svg'" width="110" alt="Subslean Logo" class="hover:opacity-80 transition-opacity" />
+            </router-link>
           </div>
 
           <h2 class="text-lg font-semibold text-main leading-snug mb-3 tracking-tight">
@@ -187,7 +204,6 @@ const handleAuthAction = async () => {
         </div>
       </div>
 
-      <!-- SAĞ BÖLÜM: Form Alanı -->
       <div class="md:col-span-7 p-8 flex flex-col justify-center bg-canvas relative">
         <div class="absolute top-5 right-5 flex items-center gap-1 z-10">
           <Button
@@ -205,7 +221,6 @@ const handleAuthAction = async () => {
         </div>
 
         <div class="max-w-sm w-full mx-auto mt-6 md:mt-0">
-          <!-- BAŞLIKLAR: viewMode'a göre dinamik değişir -->
           <div class="mb-6">
             <h3 class="text-lg font-semibold text-main tracking-tight">
               {{
@@ -232,7 +247,6 @@ const handleAuthAction = async () => {
           </div>
 
           <form @submit.prevent="handleAuthAction" class="flex flex-col gap-4">
-            <!-- E-POSTA ALANI (Yeni şifre belirleme ekranında gizlenir) -->
             <div v-if="viewMode !== 'update'">
               <label class="block text-[13px] font-medium text-main mb-1.5">{{
                 $t('auth.email')
@@ -247,13 +261,11 @@ const handleAuthAction = async () => {
               />
             </div>
 
-            <!-- ŞİFRE ALANI (Şifre sıfırlama maili gönderme ekranında gizlenir) -->
             <div v-if="viewMode !== 'forgot'">
               <div class="flex justify-between items-center mb-1.5">
                 <label class="block text-[13px] font-medium text-main">
                   {{ viewMode === 'update' ? $t('auth.newPassword') : $t('auth.password') }}
                 </label>
-                <!-- ŞİFREMİ UNUTTUM BUTONU -->
                 <button
                   v-if="viewMode === 'login'"
                   @click="setMode('forgot')"
@@ -274,7 +286,6 @@ const handleAuthAction = async () => {
               />
             </div>
 
-            <!-- ŞİFRE TEKRAR (SADECE KAYIT VE YENİ ŞİFRE BELİRLEME MODUNDA GÖZÜKÜR) -->
             <div v-if="viewMode === 'register' || viewMode === 'update'">
               <label class="block text-[13px] font-medium text-main mb-1.5">{{
                 $t('auth.confirmPassword')
@@ -289,7 +300,6 @@ const handleAuthAction = async () => {
               />
             </div>
 
-            <!-- BENİ HATIRLA (Sadece giriş yaparken görünür) -->
             <div v-if="viewMode === 'login'" class="flex items-center gap-2 mt-1">
               <input
                 type="checkbox"
@@ -305,7 +315,6 @@ const handleAuthAction = async () => {
               </label>
             </div>
 
-            <!-- HATA VE BAŞARI MESAJLARI -->
             <div
               v-if="errorMessage"
               class="flex items-start gap-2 text-red-500 text-[13px] font-medium bg-red-500/10 px-3 py-2.5 rounded-md border border-red-500/20 leading-snug"
@@ -321,7 +330,6 @@ const handleAuthAction = async () => {
               <span>{{ successMessage }}</span>
             </div>
 
-            <!-- DİNAMİK BUTON -->
             <Button
               type="submit"
               :label="
@@ -340,7 +348,6 @@ const handleAuthAction = async () => {
             />
           </form>
 
-          <!-- ALT BÖLÜM GEÇİŞ LİNKLERİ -->
           <div v-if="viewMode !== 'update'" class="mt-6 text-center border-t border-line pt-5">
             <button
               v-if="viewMode === 'forgot'"
