@@ -7,10 +7,11 @@ import Aura from "@primevue/themes/aura"
 import 'primeicons/primeicons.css'
 import { i18n } from './i18n'
 import ConfirmationService from 'primevue/confirmationservice'
+import router from './router'
 const app = createApp(App)
 
 app.use(createPinia())
-
+app.use(router)
 app.use(i18n)
 
 app.use(ConfirmationService)

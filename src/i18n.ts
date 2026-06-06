@@ -37,12 +37,42 @@ const messages = {
       passwordUpdated: 'Şifren başarıyla güncellendi! Yönlendiriliyorsun...',
       updatePasswordDesc: 'Lütfen hesabın için yeni bir şifre belirle.',
     },
-      app: {
-        title: 'Subslean',
-        subtitle: 'Abonelik ve Gider Yönetim Paneli',
-        totalExpense: 'Toplam Gider',
-        logout: 'Çıkış Yap',
-      },
+    home: {
+      login: 'Giriş Yap',
+      startFree: 'Ücretsiz Başla',
+      badge: 'Subslean v1.0 Yayında',
+      titleMain: 'Aboneliklerinizi',
+      titleHighlight: 'tek bir yerden',
+      titleEnd: 'yönetin.',
+      description:
+        'Hangi platforma ne kadar ödediğinizi unutun. Subslean ile tüm dijital harcamalarınızı takip edin, analiz edin ve sürpriz faturalardan kurtulun.',
+      startNow: 'Hemen Başlayın',
+      learnMore: 'Daha Fazla Bilgi',
+      featuresTitle: 'Her şey kontrolünüz altında',
+      featuresDesc: 'Finansal düzeninizi sağlamak için ihtiyacınız olan temel araçlar.',
+      feature1Title: 'Kolay Takip',
+      feature1Desc:
+        'Netflix, Spotify, spor salonu... Tüm düzenli ödemelerinizi tek bir listeye ekleyin ve aylık toplam harcamanızı anında görün.',
+      feature2Title: 'Detaylı Analiz',
+      feature2Desc:
+        'Harcamalarınızın kategorilere göre dağılımını grafikler üzerinden inceleyin. Paranızı nereye harcadığınızı net bir şekilde anlayın.',
+      feature3Title: 'Minimalist Tasarım',
+      feature3Desc:
+        'Karmaşık menülerden uzak, aradığınızı anında bulabileceğiniz, karanlık mod destekli ve göz yormayan kullanıcı dostu arayüz.',
+      ctaTitle: 'Hemen kontrolü ele alın',
+      ctaDesc:
+        'Saniyeler içinde hesabınızı oluşturun ve gereksiz harcamalarınızı bugün tespit etmeye başlayın.',
+      createFreeAccount: 'Ücretsiz Hesabınızı Oluşturun',
+      copyright: 'Subslean. Tüm hakları saklıdır.',
+      terms: 'Kullanım Koşulları',
+      privacy: 'Gizlilik',
+    },
+    app: {
+      title: 'Subslean',
+      subtitle: 'Abonelik ve Gider Yönetim Paneli',
+      totalExpense: 'Toplam Gider',
+      logout: 'Çıkış Yap',
+    },
 
     profile: {
       changePassword: 'Şifre Değiştir',
@@ -128,6 +158,36 @@ const messages = {
       newPassword: 'New Password',
       passwordUpdated: 'Your password has been successfully updated! Redirecting...',
       updatePasswordDesc: 'Please set a new password for your account.',
+    },
+    home: {
+      login: 'Sign In',
+      startFree: 'Start for Free',
+      badge: 'Subslean v1.0 is Live',
+      titleMain: 'Manage your subscriptions',
+      titleHighlight: 'from one place.',
+      titleEnd: '',
+      description:
+        'Forget about tracking how much you pay to which platform. With Subslean, track all your digital expenses, analyze them, and get rid of surprise bills.',
+      startNow: 'Get Started Now',
+      learnMore: 'Learn More',
+      featuresTitle: 'Everything is under your control',
+      featuresDesc: 'The essential tools you need to maintain your financial order.',
+      feature1Title: 'Easy Tracking',
+      feature1Desc:
+        'Netflix, Spotify, gym... Add all your recurring payments to a single list and see your total monthly spending instantly.',
+      feature2Title: 'Detailed Analysis',
+      feature2Desc:
+        'Examine the distribution of your expenses by categories through charts. Clearly understand where you are spending your money.',
+      feature3Title: 'Minimalist Design',
+      feature3Desc:
+        'A user-friendly interface that is away from complex menus, where you can instantly find what you are looking for, with dark mode support.',
+      ctaTitle: 'Take control right now',
+      ctaDesc:
+        'Create your account in seconds and start identifying your unnecessary expenses today.',
+      createFreeAccount: 'Create Your Free Account',
+      copyright: 'Subslean. All rights reserved.',
+      terms: 'Terms of Use',
+      privacy: 'Privacy Policy',
     },
 
     app: {
