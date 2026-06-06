@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 
-const { locale, t } = useI18n()
+const { locale, } = useI18n()
 const isDark = ref(false)
 
 const toggleDarkMode = () => {
